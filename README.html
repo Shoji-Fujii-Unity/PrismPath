@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="PRISM PATH — single-file laser thinking puzzle · README (ja/en/zh/ko/es)">
+<meta name="color-scheme" content="dark">
+<title>PRISM PATH ─ README</title>
+<style>
+:root{--bg:#05070f;--panel:#101a2e;--line:#223252;--line2:#2e4368;--text:#e9efff;--dim:#8ea1c6;
+  --cyan:#5fe9ff;--amber:#ffd166;--violet:#a98bff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);background:
+  radial-gradient(125% 55% at 50% -6%,#17264f 0%,rgba(10,14,28,0) 62%),
+  radial-gradient(95% 45% at 50% 106%,#1d1342 0%,rgba(10,14,28,0) 66%),var(--bg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",YuGothic,"Malgun Gothic",-apple-system,
+   BlinkMacSystemFont,"Segoe UI",system-ui,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.75}
+.wrap{max-width:820px;margin:0 auto;padding:0 18px calc(env(safe-area-inset-bottom) + 60px)}
+header.top{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(5,7,15,.72);
+  border-bottom:1px solid #142bannealed;border-bottom-color:#142b4d;padding:calc(env(safe-area-inset-top) + 10px) 0 10px}
+.headin{max-width:820px;margin:0 auto;padding:0 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-weight:900;letter-spacing:.14em;font-size:17px;line-height:1.1}
+.logo em{font-style:normal;color:var(--cyan);text-shadow:0 0 18px rgba(95,233,255,.6)}
+.badge{font-size:10px;letter-spacing:.18em;color:#7fd8ef;border:1px solid #24506e;border-radius:99px;padding:3px 9px;font-weight:800}
+.chips{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.chip{all:unset;cursor:pointer;font-size:12px;font-weight:800;padding:7px 11px;border-radius:99px;color:var(--dim);
+  background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px var(--line)}
+.chip.sel{color:#04121c;background:linear-gradient(180deg,#8ef0ff,#3ecbe8);box-shadow:0 0 14px rgba(95,233,255,.4)}
+.toc{display:flex;gap:6px;overflow-x:auto;padding:10px 18px 0;max-width:820px;margin:0 auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;font-size:11.5px;font-weight:700;color:#89a0c6;text-decoration:none;padding:6px 11px;border-radius:99px;
+  background:rgba(255,255,255,.035);box-shadow:inset 0 0 0 1px #1c2b47;white-space:nowrap}
+.toc a:hover{color:#fff;background:rgba(95,233,255,.12)}
+.hero{padding:38px 0 6px;text-align:center}
+.hero h1{font-size:clamp(28px,7vw,44px);margin:0;letter-spacing:.08em;font-weight:900}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.hero p{color:var(--dim);font-size:14px;margin:10px auto 0;max-width:62ch}
+.rail{height:3px;width:min(320px,80%);margin:20px auto 0;border-radius:99px;
+  background:linear-gradient(90deg,transparent,var(--cyan),#fff,var(--violet),transparent);box-shadow:0 0 16px rgba(95,233,255,.55)}
+figure{margin:26px auto 6px;text-align:center}
+figure svg{width:min(100%,300px);height:auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.5))}
+figcaption{font-size:11px;letter-spacing:.16em;color:#5f7099;margin-top:8px}
+section{margin:34px 0 0;padding:22px;border-radius:20px;background:linear-gradient(180deg,rgba(22,32,58,.7),rgba(13,20,36,.7));
+  box-shadow:inset 0 0 0 1px var(--line)}
+section h2{margin:0 0 12px;font-size:19px;letter-spacing:.03em;display:flex;align-items:center;gap:10px}
+section h2 .no{font-size:11px;color:#04121c;background:linear-gradient(180deg,#8ef0ff,#3ecbe8);border-radius:7px;padding:3px 8px;font-weight:900;letter-spacing:.1em}
+section p{color:#c6d4ee;font-size:14.5px;margin:0 0 12px}
+section ul,section ol{margin:0 0 12px;padding-left:22px;font-size:14.5px;color:#c6d4ee}
+section li{margin-bottom:8px}
+b,strong{color:#fff}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;padding:2px 6px;border-radius:6px;
+  background:#0a1020;box-shadow:inset 0 0 0 1px #1f3050;color:#bfe6ff}
+pre{margin:14px 0;padding:14px 16px;border-radius:14px;background:#080e1c;box-shadow:inset 0 0 0 1px #1d2c49;overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;color:#a9dcff;line-height:1.6}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid #1a2740;vertical-align:top}
+th{color:#8fa6cc;font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.03)}
+tr:last-child td{border-bottom:none}
+.kbd{display:inline-block;min-width:22px;text-align:center;padding:2px 7px;border-radius:6px;background:#1a2440;
+  box-shadow:inset 0 0 0 1px var(--line2);font-weight:800;font-size:12px}
+.note{border-left:3px solid var(--amber);background:rgba(255,209,102,.07);padding:12px 14px;border-radius:0 12px 12px 0;
+  font-size:13.5px;color:#e8dcbb;margin:14px 0}
+.tip{border-left-color:var(--cyan);background:rgba(95,233,255,.07);color:#c6ecf8}
+.pc{width:28px;height:28px;border-radius:8px;background:#101a2e;box-shadow:inset 0 0 0 1px #1b2942;display:inline-grid;place-items:center;vertical-align:middle}
+.pc i{display:block}
+.pc.emit i{width:17px;height:17px;border-radius:5px;background:linear-gradient(150deg,#2b3d63,#16203a);box-shadow:inset 0 0 0 1.5px #4f7fb5,0 0 9px rgba(95,233,255,.45)}
+.pc.mirror i{width:21px;height:3px;border-radius:99px;background:linear-gradient(180deg,#f2fbff,#9dc6e4,#4c6c8d);transform:rotate(-45deg);box-shadow:0 0 7px rgba(150,225,255,.6)}
+.pc.split i{width:21px;height:3px;border-radius:99px;background:linear-gradient(90deg,#cebeff,rgba(169,139,255,.28));transform:rotate(-45deg);box-shadow:0 0 7px rgba(169,139,255,.5)}
+.pc.bulb i{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#fffbe8,#ffd166 58%,#e39a22);box-shadow:0 0 11px #ffd166}
+.pc.wall i{width:20px;height:20px;border-radius:4px;background:repeating-linear-gradient(45deg,#1a2440,#1a2440 3px,#243357 3px,#243357 6px);box-shadow:inset 0 0 0 1px #30456e}
+footer{margin-top:38px;text-align:center;color:#5f7099;font-size:11.5px;letter-spacing:.06em;line-height:2}
+footer b{color:#8fa6cc}
+@media (max-width:560px){th,td{padding:8px 6px;font-size:12.5px}section{padding:18px}}
+@media print{body{background:#fff;color:#111}.chip,.toc{display:none}section{box-shadow:none;border:1px solid #ddd;background:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="headin">
+    <div class="logo">PRISM<em>PATH</em></div>
+    <span class="badge">README</span>
+    <nav class="chips" id="chips"></nav>
+  </div>
+  <nav class="toc" id="toc"></nav>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>PRISM<em>PATH</em></h1>
+    <p id="heroSub"></p>
+    <div class="rail"></div>
+    <figure>
+      <svg viewBox="0 0 272 200" role="img" aria-label="example board: emitter, splitter, mirror and two lamps">
+        <defs>
+          <filter id="gl" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="lb"><stop offset="0" stop-color="#fffbe8"/><stop offset=".6" stop-color="#ffd166"/><stop offset="1" stop-color="#e39a22"/></radialGradient>
+          <pattern id="wh" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+            <rect width="7" height="7" fill="#1a2440"/><rect width="3.5" height="7" fill="#243357"/>
+          </pattern>
+        </defs>
+        <g id="cells"></g>
+        <g stroke="#5fe9ff" stroke-width="6" stroke-linecap="round" filter="url(#gl)" opacity=".95">
+          <line x1="38" y1="102" x2="166" y2="102"/>
+          <line x1="166" y1="102" x2="166" y2="40"/>
+          <line x1="166" y1="102" x2="230" y2="102"/>
+          <line x1="230" y1="102" x2="230" y2="164"/>
+        </g>
+        <rect x="20" y="84" width="36" height="36" rx="8" fill="#2b3d63" stroke="#4f7fb5" stroke-width="1.6"/>
+        <circle cx="52" cy="102" r="5" fill="#5fe9ff"/>
+        <line x1="150" y1="118" x2="182" y2="86" stroke="#cebeff" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="214" y1="86" x2="246" y2="118" stroke="#f2fbff" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="166" cy="38" r="13" fill="url(#lb)"/>
+        <circle cx="230" cy="166" r="13" fill="url(#lb)"/>
+        <rect x="74" y="140" width="56" height="52" rx="9" fill="url(#wh)" stroke="#30456e"/>
+      </svg>
+      <figcaption id="figCap"></figcaption>
+    </figure>
+  </div>
+  <div id="doc"></div>
+  <footer id="foot"></footer>
+</div>
+
+<script>
+"use strict";
+const LANGS=[["ja","日本語"],["en","English"],["zh","简体中文"],["ko","한국어"],["es","Español"]];
+const KEY="prismpath.readme.lang";
+
+/* mini board cells */
+(function(){
+  let s="";
+  for(let r=0;r<3;r++)for(let c=0;c<4;c++)
+    s+=`<rect x="${8+c*64}" y="${8+r*64}" width="60" height="60" rx="10" fill="#101a2e" stroke="#1b2942"/>`;
+  document.getElementById("cells").innerHTML=s;
+})();
+
+const DOC={
+ja:[
+{id:"overview",t:"概要",h:`<p><b>PRISM PATH（プリズム・パス）</b>は、ブラウザだけで動く思考系レーザーパズルです。スマートフォンでは縦画面、PCではそのままダブルクリックで起動します。ビルドもライブラリもCDNも通信も一切不要な、単一HTMLファイル完結のゲームです。</p>
+<p>エミッタ（光源）から1本の光が発射されます。ミラーをタップして / と \\ を切り替え、光を90°曲げて<b>すべてのランプに同時に</b>届けばクリア。</p>
+<table><tr><th>項目</th><th>内容</th></tr>
+<tr><td>ジャンル</td><td>論理パズル／レーザーパズル（思考系）</td></tr>
+<tr><td>ファイル</td><td><code>prism-path.html</code>（依存ゼロ・オフライン動作）</td></tr>
+<tr><td>モード</td><td>自動生成40レベル ＋ やり放題チャレンジ（4難易度）</td></tr>
+<tr><td>画面</td><td>縦画面基準（スマホ最適）。PCでも遊べます</td></tr>
+<tr><td>セーブ</td><td><code>localStorage</code> 自動保存 ＋ 引継ぎコード書出/取込</td></tr>
+<tr><td>サウンド</td><td>Web Audio合成。ON/OFF・バイブON/OFF</td></tr>
+<tr><td>言語</td><td>日本語 / English / 简体中文 / 한국어 / Español（自動検出）</td></tr>
+<tr><td>ライセンス</td><td>MIT</td></tr></table>`},
+
+{id:"play",t:"あそびかた",h:`<table><tr><th>ピース</th><th>名称</th><th>はたらき</th></tr>
+<tr><td><span class="pc emit"><i></i></span></td><td>エミッタ</td><td>光を1方向へ発射します。回転しません。</td></tr>
+<tr><td><span class="pc mirror"><i></i></span></td><td>ミラー</td><td><b>タップで / ⇄ \\ を反転。</b>光を90°曲げます。盤面の操作対象はこれだけ。</td></tr>
+<tr><td><span class="pc split"><i></i></span></td><td>スプリッター</td><td>光を「まっすぐ」と「直角」の2方向に分けます。<b>回転しない</b>固定ピース。</td></tr>
+<tr><td><span class="pc bulb"><i></i></span></td><td>ランプ</td><td>光が当たると点灯し、そこで光を吸収します。</td></tr>
+<tr><td><span class="pc wall"><i></i></span></td><td>壁</td><td>光を通しません。</td></tr></table>
+<ol><li>エミッタから出た光はまっすぐ進みます。</li>
+<li>ミラーをタップして回り込み、光をランプへ導きます。</li>
+<li>すべてのランプに<b>同時に</b>光が当たればクリアです。</li></ol>
+<p><b>評価：</b>手数 ≦ 目標で ★3／≦ 目標+5 で ★2／それ以外で ★1。ヒントを使うと星が減ります（1回で★2が上限、2回以上で★1）。もどす操作は手数を戻せますが、目標値は下がりません。</p>
+<div class="tip note">💡 迷ったら「ランプの側から逆算」が基本。スプリッターがある問題は、先に片側のランプを確定させてからもう一方の経路を整えると一気に解けます。</div>`},
+
+{id:"modes",t:"モードと難易度",h:`<table><tr><th>レベル</th><th>盤面</th><th>ランプ数</th><th>追加要素</th></tr>
+<tr><td>Lv.1 – 3</td><td>4 × 5</td><td>1</td><td>ミラーのみ（チュートリアル的）</td></tr>
+<tr><td>Lv.4 – 8</td><td>4 × 6</td><td>1</td><td>壁が登場</td></tr>
+<tr><td>Lv.9 – 15</td><td>5 × 6</td><td>2</td><td><b>スプリッター</b>登場</td></tr>
+<tr><td>Lv.16 – 23</td><td>5 × 7</td><td>2</td><td>長距離ルート・分岐</td></tr>
+<tr><td>Lv.24 – 32</td><td>6 × 8</td><td>3</td><td>複数分岐の同時解</td></tr>
+<tr><td>Lv.33 – 40</td><td>7 × 9</td><td>3</td><td>ミラー最大10個・壁多め</td></tr></table>
+<p><b>チャレンジモード</b>は毎回ランダムに出題されるやり放題。難易度は <code>かんたん / ふつう / むずかしい / エクスパート</code> の4段階で、それぞれベスト手数とタイムが記録されます。</p>
+<p>レベルはクリアごとに順次解放されます。<b>目標手数（par）</b>は「初期状態で向きの間違っているミラーの数」です。</p>`},
+
+{id:"save",t:"セーブデータ",h:`<p>進行状況はこの端末の <code>localStorage</code>（キー名 <code>prismpath.v1</code>）に自動保存されます。<b>サーバーへの送信は発生しません。</b></p>
+<table><tr><th>保存される内容</th><th>説明</th></tr>
+<tr><td><code>unlocked</code></td><td>解放されているレベル番号</td></tr>
+<tr><td><code>lv</code></td><td>レベル別の星・ベスト手数・ベストタイム</td></tr>
+<tr><td><code>zen</code></td><td>チャレンジのプレイ数と難易度別ベスト</td></tr>
+<tr><td><code>lang / sound / vib</code></td><td>言語・サウンド・バイブ設定</td></tr></table>
+<ul><li><b>他の端末へ引継ぎ：</b> 設定 →「書出コード」でBase64文字列を取得 → 新しい端末で「読込」に貼り付け。</li>
+<li><b>リセット：</b> 設定 →「削除」（確認ダイアログあり）で全データ消去。</li></ul>
+<div class="note">⚠️ シークレット/プライベートモードではブラウザを閉じると保存が消えることがあります。大切な記録は書出コードでバックアップしてください。</div>`},
+
+{id:"lang",t:"多言語対応",h:`<p>同梱言語：<b>日本語・English・简体中文・한국어・Español</b>。</p>
+<ul><li>初回起動時に端末ブラウザの言語を自動判定して表示します（該当がなければ English）。</li>
+<li>上部のグローブ、または 設定 →「言語」からいつでも切り替え可能。選択は保存され、次回からその言語で始まります。</li>
+<li>UI・ヘルプ・評価文まで辞書管理。<code>I18N</code> に追加して <code>LANGS</code> へ登録すれば言語を増やせます。</li></ul>`},
+
+{id:"run",t:"起動方法",h:`<ol><li>ゲーム本体を <code>prism-path.html</code> という名前で保存します。</li>
+<li>ファイルをダブルクリック（スマホは共有メニューからブラウザで開く）だけで遊べます。インストール不要・ネット不要。</li>
+<li>iOSなら Safari で開いて「ホーム画面に追加」→ フルスクリーンでアプリのように起動できます。</li></ol>
+<p>ローカルサーバーで配信する場合：</p>
+<pre>python3 -m http.server 8080
+# → http://localhost:8080/prism-path.html
+
+npx serve .        # Node.js がある場合</pre>
+<p>GitHub Pages・Netlify・任意の静的バケットにもそのまま置けます（API不要・1ファイルで完結）。</p>`},
+
+{id:"tech",t:"技術メモ",h:`<ul>
+<li><b>光のシミュレーション</b> — <code>(マス, 向き)</code> を状態にする幅優先探索。訪問済み集合を持つので、ミラーで作るループもスプリッターの合流も安全に停止します。各区間が発光源からの距離を持ち、CSSのアニメーション遅延に渡して「光が流れる」描画をしています。</li>
+<li><b>自動生成（解き優先）</b> — エミッタから光のツリーをランダムに掘り、曲がりをミラー・分岐をスプリッター・終端をランプに変換 → プレイ時と<b>同一のシミュレーター</b>で全ランプ点灯を検証。装飾の壁は光路外のみに置き、最後に全ミラーをシャッフルして「未完成」かつ「誤りが一定数以上」の盤面だけを採用します。つまり<b>解けない問題が排出されることはありません。</b></li>
+<li><b>目標手数の定義</b> — シャッフル後の「向きが間違っているミラーの数」。追加のダミーピースは置かないので、盤面は常に正直なロジックパズルです。</li>
+<li><b>サウンド</b> — Web Audio のオシレータ合成のみ。タップ音／ランプごとの点灯音（高さ違いで重なる）／4和音のファンファーレ。音声ファイルはゼロ。</li>
+<li><b>i18n</b> — 言語ごとにフラットな辞書を1つ持ち、<code>data-i18n</code> 属性を見て一括反映します。</li>
+<li><b>描画</b> — CSS Grid の盤面にDOM要素を再利用更新。盤面サイズは <code>clientWidth/Height</code> から両軸フィットし、回転やリサイズにも追随します。</li>
+</ul>
+<p>キーボード：<span class="kbd">U</span> もどす ・ <span class="kbd">H</span> ヒント ・ <span class="kbd">R</span> やりなおし（その他はタップ／クリック操作）。</p>`},
+
+{id:"env",t:"動作環境",h:`<table><tr><th>プラットフォーム</th><th>ブラウザ</th><th>備考</th></tr>
+<tr><td>iPhone / iPad</td><td>Safari 14+</td><td>縦画面推奨。「ホーム画面に追加」で全画面表示</td></tr>
+<tr><td>Android</td><td>Chrome 90+ / Edge / Samsung Internet</td><td>バイブレーションは対応端末のみ</td></tr>
+<tr><td>PC</td><td>Chrome / Edge / Firefox / Safari（最新）</td><td>キーボードショートカット対応</td></tr></table>
+<ul><li>JavaScript 有効が必須。</li><li>Cookie・トラッキング・外部通信はありません。ファイル読み込み後、ネットワークは使いません。</li>
+<li>操作はタップのみ。タップ領域は最小44px相当を確保しています。</li></ul>`},
+
+{id:"faq",t:"つまずきやすい点",h:`<ul>
+<li><b>音が鳴らない</b> → ブラウザの自動再生規制のため、最初の1タップ後に鳴る仕様です。上部のスピーカーアイコンと端末のマナーモードも確認してください。</li>
+<li><b>進行が消えた</b> → シークレットモード、または別のブラウザ／プロファイルで開いていないか確認。今後は書出コードを保管を。</li>
+<li><b>盤面が小さい</b> → 縦画面にしてください。横幅と高さの両方に合わせて自動調整されます。</li>
+<li><b>引継ぎコードが読めない</b> → 引用符や途中で切れた改行を避け、コード全体をコピーしてください。</li>
+<li><b>ヒントで解けてしまう</b> → ヒントは星に影響するだけで記録は残ります。目標内に収めたいなら使う前に一手だけ粘るのがおすすめです。</li></ul>`},
+
+{id:"custom",t:"カスタマイズ",h:`<table><tr><th>定数 / 箇所</th><th>内容</th></tr>
+<tr><td><code>TOTAL</code></td><td>ステージ数（既定 40）</td></tr>
+<tr><td><code>TIERS</code> / <code>ZEN</code></td><td>難易度別の盤面サイズ・ランプ数・最小/最大ミラー数・壁数</td></tr>
+<tr><td><code>STORE</code></td><td>localStorage キー。保存構造を変えたら版本号も上げる（例 <code>prismpath.v2</code>）と既存データと衝突しません</td></tr>
+<tr><td><code>I18N</code> / <code>LANGS</code></td><td>言語辞書と選択肢の一覧</td></tr>
+<tr><td><code>:root</code> CSS変数</td><td>配色テーマ（シアン＝光／アンバー＝ランプ／パープル＝分岐）</td></tr></table>
+<p>難易度をいじるなら <code>TIERS[n].mirMax</code> と <code>walls</code> を上げるのが手っ取り早く、新機構を足す場合はピース種別を増やして <code>computeBeams()</code> の分岐に追加します。</p>
+<p><b>ライセンス：</b>MIT。アイコン・効果音・生成ロジックはすべて本プロジェクトの手書きで、第三者アセットは含みません。</p>`}
+],
+en:[
+{id:"overview",t:"Overview",h:`<p><b>PRISM PATH</b> is a thinking puzzle that runs entirely in a web browser — on a phone in portrait mode or on a desktop. No build step, no framework, no CDN, no network: keep the HTML file anywhere and double-click it.</p>
+<p>An <i>emitter</i> fires one beam of light. Tap mirrors to flip <code>/</code> ⇄ <code>\\</code>, bend the beam by 90° and make <b>every lamp glow at the same time</b>.</p>
+<table><tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Genre</td><td>Logic / laser puzzle</td></tr>
+<tr><td>File</td><td><code>prism-path.html</code> — zero dependencies, works offline</td></tr>
+<tr><td>Modes</td><td>40 generated levels ＋ endless Challenge (4 difficulties)</td></tr>
+<tr><td>Screen</td><td>Portrait-first (phones), fully playable on PC</td></tr>
+<tr><td>Save</td><td><code>localStorage</code> ＋ export/import transfer code</td></tr>
+<tr><td>Sound</td><td>Web Audio synthesis, sound &amp; haptics switches</td></tr>
+<tr><td>Languages</td><td>日本語 / English / 简体中文 / 한국어 / Español (auto-detected)</td></tr>
+<tr><td>License</td><td>MIT</td></tr></table>`},
+
+{id:"play",t:"How to play",h:`<table><tr><th>Piece</th><th>Name</th><th>Behaviour</th></tr>
+<tr><td><span class="pc emit"><i></i></span></td><td>Emitter</td><td>Fires the beam in one direction. Fixed.</td></tr>
+<tr><td><span class="pc mirror"><i></i></span></td><td>Mirror</td><td><b>Tap to flip <code>/</code> ⇄ <code>\\</code>.</b> Bends light by 90°. The only piece you control.</td></tr>
+<tr><td><span class="pc split"><i></i></span></td><td>Splitter</td><td>Divides the beam into <i>straight</i> + <i>sideways</i>. Cannot rotate.</td></tr>
+<tr><td><span class="pc bulb"><i></i></span></td><td>Lamp</td><td>Lights up when hit and absorbs the beam there.</td></tr>
+<tr><td><span class="pc wall"><i></i></span></td><td>Wall</td><td>Blocks light.</td></tr></table>
+<ol><li>Light leaves the emitter in a straight line.</li>
+<li>Tap mirrors to route around walls and reach the lamps.</li>
+<li>All lamps must be lit <b>simultaneously</b> to clear the board.</li></ol>
+<p><b>Rating:</b> 3★ if moves ≤ par, 2★ if ≤ par + 5, otherwise 1★. Hints cap your stars (1 hint → max 2★, 2+ hints → 1★). Undo returns a move but never lowers par.</p>
+<div class="tip note">💡 Stuck? Reason backwards from the lamps. With splitters, lock in one branch first and then fix the remaining route — it collapses the puzzle very quickly.</div>`},
+
+{id:"modes",t:"Modes & difficulty",h:`<table><tr><th>Levels</th><th>Grid</th><th>Lamps</th><th>New element</th></tr>
+<tr><td>Lv.1 – 3</td><td>4 × 5</td><td>1</td><td>mirrors only (tutorial-ish)</td></tr>
+<tr><td>Lv.4 – 8</td><td>4 × 6</td><td>1</td><td>walls appear</td></tr>
+<tr><td>Lv.9 – 15</td><td>5 × 6</td><td>2</td><td><b>splitter</b> introduced</td></tr>
+<tr><td>Lv.16 – 23</td><td>5 × 7</td><td>2</td><td>long routes, branching</td></tr>
+<tr><td>Lv.24 – 32</td><td>6 × 8</td><td>3</td><td>several branches at once</td></tr>
+<tr><td>Lv.33 – 40</td><td>7 × 9</td><td>3</td><td>up to 10 mirrors, more walls</td></tr></table>
+<p><b>Challenge</b> mode generates a fresh random puzzle every round with difficulties <code>Easy / Normal / Hard / Expert</code>, storing your best moves and time for each.</p>
+<p>Levels unlock one by one as you clear them. The <b>par</b> is exactly “the number of wrongly oriented mirrors in the starting position”.</p>`},
+
+{id:"save",t:"Save data",h:`<p>Progress is written automatically to <code>localStorage</code> under the key <code>prismpath.v1</code>. <b>Nothing is ever uploaded.</b></p>
+<table><tr><th>Field</th><th>Contents</th></tr>
+<tr><td><code>unlocked</code></td><td>highest unlocked level</td></tr>
+<tr><td><code>lv</code></td><td>stars, best moves and best time per level</td></tr>
+<tr><td><code>zen</code></td><td>Challenge plays and best result per difficulty</td></tr>
+<tr><td><code>lang / sound / vib</code></td><td>language, sound and vibration settings</td></tr></table>
+<ul><li><b>Transfer:</b> Settings → <i>Export</i> gives a Base64 code; paste it into <i>Import</i> on another device.</li>
+<li><b>Reset:</b> Settings → <i>Delete</i> wipes everything (with confirmation).</li></ul>
+<div class="note">⚠️ Private / incognito windows may discard the save when closed. Keep an export code as a backup.</div>`},
+
+{id:"lang",t:"Languages",h:`<p>Bundled languages: <b>日本語 · English · 简体中文 · 한국어 · Español</b>.</p>
+<ul><li>The browser language is detected on first launch (falls back to English).</li>
+<li>Switch anytime with the globe in the header or Settings → Language; your choice is remembered.</li>
+<li>UI, help text and result screens all come from one dictionary per language — add a key to every dictionary plus <code>LANGS</code> to ship a new language.</li></ul>`},
+
+{id:"run",t:"Getting started",h:`<ol><li>Save the game as <code>prism-path.html</code>.</li>
+<li>Double-click it (on phones: Share → Open in browser). No installation, no internet needed.</li>
+<li>iOS tip: open in Safari then <i>Add to Home Screen</i> for a full-screen app-like launch.</li></ol>
+<p>Serving it locally instead:</p>
+<pre>python3 -m http.server 8080
+# → http://localhost:8080/prism-path.html
+
+npx serve .        # with Node.js</pre>
+<p>Drop it on GitHub Pages, Netlify or any static bucket — no API required.</p>`},
+
+{id:"tech",t:"Under the hood",h:`<ul>
+<li><b>Beam simulation</b> — BFS over <code>(cell, direction)</code> states with a visited set, so mirror loops and splitter merges always terminate. Every segment keeps its distance from the emitter and is rendered with a staggered CSS delay, which makes the light visibly flow.</li>
+<li><b>Generation (solution-first)</b> — a random beam tree is carved out of the emitter: turns become mirrors, branches become splitters, leaves become lamps. The layout is then verified with <b>the very same simulator used during play</b>. Decorative walls are placed only off-path; finally all mirrors are shuffled and any position that is already solved (or barely wrong) is rejected. <b>An unsolvable puzzle can never reach you.</b></li>
+<li><b>Par definition</b> — the count of wrongly oriented mirrors after shuffling. No dummy pieces are added, so the board stays an honest logic puzzle.</li>
+<li><b>Sound</b> — pure Web Audio oscillators: tap blip, one ping per lamp (different pitches stack), 4-note fanfare. Zero audio files.</li>
+<li><b>i18n</b> — one flat dictionary per language applied through <code>data-i18n</code> attributes.</li>
+<li><b>Rendering</b> — CSS Grid board with reused DOM nodes; the board is fitted to both width and height from <code>clientWidth/Height</code>, so rotation and window resizing are handled.</li>
+</ul>
+<p>Keyboard: <span class="kbd">U</span> undo · <span class="kbd">H</span> hint · <span class="kbd">R</span> reset (everything else is tap/click).</p>`},
+
+{id:"env",t:"Requirements",h:`<table><tr><th>Platform</th><th>Browser</th><th>Notes</th></tr>
+<tr><td>iPhone / iPad</td><td>Safari 14+</td><td>portrait recommended; “Add to Home Screen” for full screen</td></tr>
+<tr><td>Android</td><td>Chrome 90+ / Edge / Samsung Internet</td><td>haptics on supported devices only</td></tr>
+<tr><td>Desktop</td><td>Chrome / Edge / Firefox / Safari (latest)</td><td>keyboard shortcuts available</td></tr></table>
+<ul><li>JavaScript required.</li><li>No cookies, no tracking, no network requests after the file loads.</li>
+<li>Tap-only controls with generous touch targets (~44 px).</li></ul>`},
+
+{id:"faq",t:"Troubleshooting",h:`<ul>
+<li><b>No sound</b> — browsers block audio until a gesture, so it starts after your first tap. Also check the speaker icon and the hardware mute switch.</li>
+<li><b>Progress gone</b> — you were probably in a private window or another browser/profile. Export a code next time.</li>
+<li><b>Board looks tiny</b> — rotate to portrait; the board fits both axes automatically.</li>
+<li><b>Import fails</b> — copy the whole code without quotes or line breaks.</li>
+<li><b>Hints feel cheap</b> — they only cost stars: your record still counts. Try one extra move before tapping hint.</li></ul>`},
+
+{id:"custom",t:"Customise",h:`<table><tr><th>Constant / place</th><th>Meaning</th></tr>
+<tr><td><code>TOTAL</code></td><td>number of levels (default 40)</td></tr>
+<tr><td><code>TIERS</code> / <code>ZEN</code></td><td>grid size, lamp count, mirror budget and wall count per difficulty</td></tr>
+<tr><td><code>STORE</code></td><td>localStorage key — bump the version (e.g. <code>prismpath.v2</code>) when you change the save schema</td></tr>
+<tr><td><code>I18N</code> / <code>LANGS</code></td><td>dictionaries and the language list</td></tr>
+<tr><td><code>:root</code> CSS vars</td><td>colour theme (cyan = beam, amber = lamp, violet = splitter)</td></tr></table>
+<p>To make things harder quickly, raise <code>TIERS[n].mirMax</code> and <code>walls</code>. To add a new mechanic, introduce a piece type and extend the switch in <code>computeBeams()</code>.</p>
+<p><b>License:</b> MIT. Icons, sound and the generator are hand-written for this project — no third-party assets.</p>`}
+],
+zh:[
+{id:"overview",t:"概览",h:`<p><b>PRISM PATH</b> 是一个只在浏览器里运行的逻辑谜题：手机竖屏或电脑双击即可开始。没有构建步骤、没有框架、没有 CDN、不需要联网——把 HTML 文件放在任意位置打开即可。</p>
+<p><i>发射器</i>射出一束光。点击镜子在 <code>/</code> 与 <code>\\</code> 之间切换，把光转折 90°，让<b>所有灯泡同时点亮</b>即过关。</p>
+<table><tr><th>项目</th><th>内容</th></tr>
+<tr><td>类型</td><td>逻辑 / 激光谜题</td></tr>
+<tr><td>文件</td><td><code>prism-path.html</code>（零依赖，可离线运行）</td></tr>
+<tr><td>模式</td><td>自动生成 40 关 ＋ 无限挑战（4 种难度）</td></tr>
+<tr><td>画面</td><td>以竖屏为基准（手机优先），电脑同样可玩</td></tr>
+<tr><td>存档</td><td><code>localStorage</code> 自动保存 ＋ 导出/导入代码</td></tr>
+<tr><td>音效</td><td>Web Audio 合成，音效与震动均可开关</td></tr>
+<tr><td>语言</td><td>日本語 / English / 简体中文 / 한국어 / Español（自动识别）</td></tr>
+<tr><td>许可</td><td>MIT</td></tr></table>`},
+
+{id:"play",t:"玩法",h:`<table><tr><th>图形</th><th>名称</th><th>作用</th></tr>
+<tr><td><span class="pc emit"><i></i></span></td><td>发射器</td><td>朝一个方向射出光线，固定不可转。</td></tr>
+<tr><td><span class="pc mirror"><i></i></span></td><td>镜子</td><td><b>点击切换 <code>/</code> ⇄ <code>\\</code></b>，把光转折 90°。唯一可操作的棋子。</td></tr>
+<tr><td><span class="pc split"><i></i></span></td><td>分束器</td><td>把光分成「直行」和「直角」两路，<b>不可旋转</b>。</td></tr>
+<tr><td><span class="pc bulb"><i></i></span></td><td>灯泡</td><td>被光照到即点亮，并在此吸收光线。</td></tr>
+<tr><td><span class="pc wall"><i></i></span></td><td>墙</td><td>阻挡光线。</td></tr></table>
+<ol><li>光从发射器沿直线射出。</li>
+<li>点击镜子绕开墙壁，把光引到灯泡。</li>
+<li>所有灯泡<b>同时</b>点亮即过关。</li></ol>
+<p><b>评价：</b>步数 ≦ 目标为 ★3；≦ 目标+5 为 ★2；其余 ★1。使用提示会限制星级（1 次上限 ★2，2 次及以上 ★1）。撤销可退回步数，但目标值不变。</p>
+<div class="tip note">💡 卡住时从灯泡倒推。遇到分束器，先固定一路，再调整另一条路径，谜题会很快瓦解。</div>`},
+
+{id:"modes",t:"模式与难度",h:`<table><tr><th>关卡</th><th>棋盘</th><th>灯泡数</th><th>新增要素</th></tr>
+<tr><td>Lv.1 – 3</td><td>4 × 5</td><td>1</td><td>只有镜子（教学）</td></tr>
+<tr><td>Lv.4 – 8</td><td>4 × 6</td><td>1</td><td>出现墙</td></tr>
+<tr><td>Lv.9 – 15</td><td>5 × 6</td><td>2</td><td><b>分束器</b>登场</td></tr>
+<tr><td>Lv.16 – 23</td><td>5 × 7</td><td>2</td><td>长路线、分支</td></tr>
+<tr><td>Lv.24 – 32</td><td>6 × 8</td><td>3</td><td>多分支同时求解</td></tr>
+<tr><td>Lv.33 – 40</td><td>7 × 9</td><td>3</td><td>镜子最多 10 个、墙更多</td></tr></table>
+<p><b>挑战模式</b>每轮随机出题，难度分为 <code>简单 / 普通 / 困难 / 专家</code>，并按难度分别保存最佳步数与时间。</p>
+<p>关卡随通关逐级解锁。<b>目标步数（par）</b>＝初始状态下朝向错误的镜子数量。</p>`},
+
+{id:"save",t:"存档数据",h:`<p>进度自动写入本机 <code>localStorage</code>，键名为 <code>prismpath.v1</code>，<b>不会上传任何数据。</b></p>
+<table><tr><th>字段</th><th>内容</th></tr>
+<tr><td><code>unlocked</code></td><td>已解锁的最高关卡</td></tr>
+<tr><td><code>lv</code></td><td>每关的星星、最佳步数与时间</td></tr>
+<tr><td><code>zen</code></td><td>挑战模式游玩次数与各难度最佳成绩</td></tr>
+<tr><td><code>lang / sound / vib</code></td><td>语言、音效、震动设置</td></tr></table>
+<ul><li><b>跨设备转移：</b>设置 →「导出」得到 Base64 代码 → 在另一台设备「导入」。</li>
+<li><b>重置：</b>设置 →「删除」（有确认）清空全部数据。</li></ul>
+<div class="note">⚠️ 无痕模式下关闭浏览器可能丢失存档，建议用导出代码备份。</div>`},
+
+{id:"lang",t:"多语言",h:`<p>内置语言：<b>日本語 · English · 简体中文 · 한국어 · Español</b>。</p>
+<ul><li>首次启动自动识别浏览器语言（无匹配时用 English）。</li>
+<li>可随时通过顶部的地球图标或「设置 → 语言」切换，选择会被记住。</li>
+<li>界面、说明与结算文案都来自各语言词典；在每份词典和 <code>LANGS</code> 中新增即可扩展语言。</li></ul>`},
+
+{id:"run",t:"启动方式",h:`<ol><li>把游戏保存为 <code>prism-path.html</code>。</li>
+<li>双击打开即可（手机可用“分享 → 用浏览器打开”），无需安装、无需联网。</li>
+<li>iOS 可在 Safari 中打开后选择「添加到主屏幕」，以全屏方式启动。</li></ol>
+<p>如需本地服务器：</p>
+<pre>python3 -m http.server 8080
+# → http://localhost:8080/prism-path.html
+
+npx serve .        # 已安装 Node.js 时</pre>
+<p>放到 GitHub Pages、Netlify 等静态托管即可直接运行（无需后端）。</p>`},
+
+{id:"tech",t:"技术说明",h:`<ul>
+<li><b>光线模拟</b> — 以 <code>(格子, 方向)</code> 为状态的广度优先搜索，配合已访问集合，镜子回路与分束合流都能安全终止。每段光束保存与光源的距离，用于 CSS 延迟动画，形成“流动”效果。</li>
+<li><b>关卡生成（解题优先）</b> — 先从发射器随机挖出光树：转弯变镜子、分支变分束器、末端变灯泡；再用与游戏中<b>完全相同的模拟器</b>验证全部点亮。装饰墙只放在光路之外，最后打乱所有镜子，并剔除“已完成”或“错误太少”的棋盘，因此<b>不会出现无解关卡。</b></li>
+<li><b>目标步数</b> — 打乱后朝向错误的镜子数量。不放置无效棋子，棋盘始终是纯粹的逻辑谜题。</li>
+<li><b>音效</b> — 仅 Web Audio 振荡器合成：点击音、每个灯泡各一个点亮音（音高叠加）、四音号声。无音频文件。</li>
+<li><b>i18n</b> — 每种语言一份扁平词典，通过 <code>data-i18n</code> 属性统一替换。</li>
+<li><b>渲染</b> — CSS Grid 棋盘＋DOM 复用更新；根据 <code>clientWidth/Height</code> 在宽高两个方向自适应，支持旋转与窗口缩放。</li>
+</ul>
+<p>键盘：<span class="kbd">U</span> 撤销 · <span class="kbd">H</span> 提示 · <span class="kbd">R</span> 重来（其余为点击/触摸操作）。</p>`},
+
+{id:"env",t:"运行环境",h:`<table><tr><th>平台</th><th>浏览器</th><th>说明</th></tr>
+<tr><td>iPhone / iPad</td><td>Safari 14+</td><td>建议竖屏；“添加到主屏幕”可全屏</td></tr>
+<tr><td>Android</td><td>Chrome 90+ / Edge / Samsung Internet</td><td>震动仅部分设备支持</td></tr>
+<tr><td>电脑</td><td>Chrome / Edge / Firefox / Safari 最新版</td><td>支持键盘快捷键</td></tr></table>
+<ul><li>需启用 JavaScript。</li><li>无 Cookie、无跟踪；文件加载后不再发起网络请求。</li>
+<li>纯点击操作，触控区域约 44 px。</li></ul>`},
+
+{id:"faq",t:"常见问题",h:`<ul>
+<li><b>没有声音</b> — 浏览器的自动播放限制导致首次点击后才发声；同时检查应用内喇叭图标与系统静音。</li>
+<li><b>进度丢失</b> — 多半处于无痕模式或使用了另一个浏览器／配置，下次记得导出代码。</li>
+<li><b>棋盘太小</b> — 请竖屏；棋盘会在宽、高两个方向自适应。</li>
+<li><b>导入失败</b> — 完整复制整段代码，去掉引号与换行。</li>
+<li><b>提示太好用</b> — 提示只影响星级，记录依然保留。建议先多想一步再点提示。</li></ul>`},
+
+{id:"custom",t:"自定义",h:`<table><tr><th>常量 / 位置</th><th>含义</th></tr>
+<tr><td><code>TOTAL</code></td><td>关卡数（默认 40）</td></tr>
+<tr><td><code>TIERS</code> / <code>ZEN</code></td><td>各难度的棋盘尺寸、灯泡数、镜子预算与墙数</td></tr>
+<tr><td><code>STORE</code></td><td>localStorage 键名；改动存档结构时请同步升版本号（如 <code>prismpath.v2</code>）</td></tr>
+<tr><td><code>I18N</code> / <code>LANGS</code></td><td>各语言词典与语言列表</td></tr>
+<tr><td><code>:root</code> CSS 变量</td><td>配色（青=光束／琥珀=灯泡／紫=分束器）</td></tr></table>
+<p>想快速加难，可提高 <code>TIERS[n].mirMax</code> 与 <code>walls</code>；要加新机制，则新增棋子类型并在 <code>computeBeams()</code> 的分支中处理。</p>
+<p><b>许可：</b>MIT。图标、音效与生成算法均为本项目手写，不含第三方素材。</p>`}
+],
+ko:[
+{id:"overview",t:"개요",h:`<p><b>PRISM PATH</b>는 브라우저만으로 동작하는 사고 퍼즐입니다. 스마트폰에서는 세로, PC에서는 더블클릭으로 바로 실행됩니다. 빌드·프레임워크·CDN·통신이 전혀 필요 없는 단일 HTML 파일입니다.</p>
+<p><i>방출기</i>에서 빛 한 줄기가 나갑니다. 거울을 탭해 <code>/</code> ⇄ <code>\\</code> 를 바꾸고 90° 꺾어 <b>모든 램프에 동시에</b> 빛을 닿게 하면 클리어입니다.</p>
+<table><tr><th>항목</th><th>내용</th></tr>
+<tr><td>장르</td><td>논리 / 레이저 퍼즐</td></tr>
+<tr><td>파일</td><td><code>prism-path.html</code> (의존성 0, 오프라인 실행)</td></tr>
+<tr><td>모드</td><td>자동 생성 40레벨 ＋ 무한 챌린지(4단계)</td></tr>
+<tr><td>화면</td><td>세로 기준(모바일 최적), PC에서도 플레이 가능</td></tr>
+<tr><td>세이브</td><td><code>localStorage</code> 자동 저장 ＋ 코드 내보내기/불러오기</td></tr>
+<tr><td>사운드</td><td>Web Audio 합성, 사운드·진동 각각 OFF 가능</td></tr>
+<tr><td>언어</td><td>日本語 / English / 简体中文 / 한국어 / Español (자동 감지)</td></tr>
+<tr><td>라이선스</td><td>MIT</td></tr></table>`},
+
+{id:"play",t:"게임 방법",h:`<table><tr><th>ピース</th><th>이름</th><th>설명</th></tr>
+<tr><td><span class="pc emit"><i></i></span></td><td>방출기</td><td>한 방향으로 빛을 발사합니다. 회전하지 않습니다.</td></tr>
+<tr><td><span class="pc mirror"><i></i></span></td><td>거울</td><td><b>탭하면 <code>/</code> ⇄ <code>\\</code> 반전.</b> 빛을 90° 꺾습니다. 유일하게 조작하는 조각입니다.</td></tr>
+<tr><td><span class="pc split"><i></i></span></td><td>분할기</td><td>빛을 '직진'과 '직각' 두 방향으로 나눕니다. <b>회전하지 않는</b> 고정 조각입니다.</td></tr>
+<tr><td><span class="pc bulb"><i></i></span></td><td>램프</td><td>빛이 닿으면 켜지고 그 지점에서 빛을 흡수합니다.</td></tr>
+<tr><td><span class="pc wall"><i></i></span></td><td>벽</td><td>빛을 막습니다.</td></tr></table>
+<ol><li>방출기의 빛은 직진합니다.</li>
+<li>거울을 탭해 벽을 피해 램프로 안내합니다.</li>
+<li>모든 램프에 <b>동시에</b> 빛이 닿으면 클리어입니다.</li></ol>
+<p><b>평가:</b> 이동 수 ≦ 목표 ★3 / ≦ 목표+5 ★2 / 그 외 ★1. 힌트는 별을 제한합니다(1회 ★2까지, 2회 이상 ★1). 되돌리기는 이동 수를 돌려주지만 목표는 낮아지지 않습니다.</p>
+<div class="tip note">💡 막히면 램프 쪽에서 거꾸로 생각하세요. 분할기가 있으면 한 갈래를 먼저 확정하고 나머지를 맞추면 금세 풀립니다.</div>`},
+
+{id:"modes",t:"모드와 난이도",h:`<table><tr><th>레벨</th><th>판</th><th>램프 수</th><th>추가 요소</th></tr>
+<tr><td>Lv.1 – 3</td><td>4 × 5</td><td>1</td><td>거울만 (튜토리얼)</td></tr>
+<tr><td>Lv.4 – 8</td><td>4 × 6</td><td>1</td><td>벽 등장</td></tr>
+<tr><td>Lv.9 – 15</td><td>5 × 6</td><td>2</td><td><b>분할기</b> 등장</td></tr>
+<tr><td>Lv.16 – 23</td><td>5 × 7</td><td>2</td><td>긴 경로·분기</td></tr>
+<tr><td>Lv.24 – 32</td><td>6 × 8</td><td>3</td><td>여러 분기 동시 해결</td></tr>
+<tr><td>Lv.33 – 40</td><td>7 × 9</td><td>3</td><td>거울 최대 10개·벽 증가</td></tr></table>
+<p><b>챌린지</b> 모드는 매 라운드 랜덤 출제되는 무한 모드이며 <code>쉬움 / 보통 / 어려움 / 전문가</code> 4단계별로 최고 이동 수와 시간이 기록됩니다.</p>
+<p>레벨은 클리어 순서대로 열립니다. <b>목표 이동 수(par)</b>는 “처음 상태 방향이 틀린 거울의 개수”입니다.</p>`},
+
+{id:"save",t:"세이브 데이터",h:`<p>진행 상황은 기기 내부 <code>localStorage</code>의 키 <code>prismpath.v1</code>에 자동 저장됩니다. <b>서버로 전송되는 정보는 없습니다.</b></p>
+<table><tr><th>필드</th><th>내용</th></tr>
+<tr><td><code>unlocked</code></td><td>해금된 최고 레벨</td></tr>
+<tr><td><code>lv</code></td><td>레벨별 별·최고 이동 수·최고 시간</td></tr>
+<tr><td><code>zen</code></td><td>챌린지 플레이 수와 난이도별 최고 기록</td></tr>
+<tr><td><code>lang / sound / vib</code></td><td>언어·사운드·진동 설정</td></tr></table>
+<ul><li><b>다른 기기로 옮기기:</b> 설정 →「내보내기」로 Base64 코드 발급 → 다른 기기에서「불러오기」.</li>
+<li><b>초기화:</b> 설정 →「삭제」(확인 후) 전체 삭제.</li></ul>
+<div class="note">⚠️ 시크릿 모드에서는 창을 닫으면 저장이 사라질 수 있습니다. 내보내기 코드로 백업하세요.</div>`},
+
+{id:"lang",t:"다국어",h:`<p>기본 언어: <b>日本語 · English · 简体中文 · 한국어 · Español</b>.</p>
+<ul><li>첫 실행 때 브라우저 언어를 자동 감지합니다(해당 없으면 English).</li>
+<li>상단 지구본 또는 설정 → 언어에서 언제든 변경하며, 선택은 저장됩니다.</li>
+<li>UI·설명·결과 문구 모두 사전 기반입니다. 모든 사전과 <code>LANGS</code>에 추가하면 언어가 늘어납니다.</li></ul>`},
+
+{id:"run",t:"실행 방법",h:`<ol><li>게임을 <code>prism-path.html</code> 이름으로 저장합니다.</li>
+<li>더블클릭(모바일은 공유 → 브라우저로 열기)하면 끝. 설치·네트워크 불필요.</li>
+<li>iOS는 Safari에서 연 뒤 “홈 화면에 추가”를 하면 풀스크린으로 실행됩니다.</li></ol>
+<p>로컬 서버로 배포할 때:</p>
+<pre>python3 -m http.server 8080
+# → http://localhost:8080/prism-path.html
+
+npx serve .        # Node.js 가 있는 경우</pre>
+<p>GitHub Pages, Netlify 등 정적 호스팅에 그대로 올리면 됩니다(백엔드 불필요).</p>`},
+
+{id:"tech",t:"기술 메모",h:`<ul>
+<li><b>빛 시뮬레이션</b> — <code>(칸, 방향)</code> 상태의 너비 우선 탐색. 방문 집합을 써서 거울 루프·분할기 합류도 안전하게 종료합니다. 구간마다 광원 거리를 두고 CSS 지연으로 '흐르는' 연출을 합니다.</li>
+<li><b>생성(해답 우선)</b> — 방출기에서 빛 트리를 무작위로 뚫어 꺾임은 거울, 분기는 분할기, 끝은 램프로 바꾼 뒤 <b>플레이 중 쓰는 것과 동일한 시뮬레이터</b>로 검증을 통과시킵니다. 장식 벽은 광로 밖에만 두고, 마지막에 모든 거울을 섞어 '이미 해결'·'오답 부족' 상태는 버립니다. 따라서 <b>풀 수 없는 문제가 나올 수 없습니다.</b></li>
+<li><b>목표 이동 수</b> — 섞은 뒤 방향이 틀린 거울의 개수. 무의미한 조각은 두지 않아 정직한 논리 퍼즐이 유지됩니다.</li>
+<li><b>사운드</b> — Web Audio 발진기 합성만 사용(탭음·램프별 점등음·4음 팡파르). 오디오 파일 없음.</li>
+<li><b>i18n</b> — 언어별 플랫 사전 하나, <code>data-i18n</code> 속성으로 일괄 적용.</li>
+<li><b>렌더링</b> — CSS Grid 판 + DOM 재사용. <code>clientWidth/Height</code> 기준으로 가로·세로 모두 맞춰 회전·리사이즈에 대응합니다.</li>
+</ul>
+<p>키보드: <span class="kbd">U</span> 되돌리기 · <span class="kbd">H</span> 힌트 · <span class="kbd">R</span> 처음부터 (나머지는 탭/클릭).</p>`},
+
+{id:"env",t:"동작 환경",h:`<table><tr><th>플랫폼</th><th>브라우저</th><th>비고</th></tr>
+<tr><td>iPhone / iPad</td><td>Safari 14+</td><td>세로 권장, “홈 화면에 추가”로 풀스크린</td></tr>
+<tr><td>Android</td><td>Chrome 90+ / Edge / Samsung Internet</td><td>진동은 지원 기기만</td></tr>
+<tr><td>PC</td><td>Chrome / Edge / Firefox / Safari 최신</td><td>키보드 단축키 지원</td></tr></table>
+<ul><li>JavaScript 활성화 필요.</li><li>쿠키·추적 없음, 파일 로드 후 네트워크 사용 없음.</li>
+<li>탭 전용 조작, 터치 영역 약 44px 확보.</li></ul>`},
+
+{id:"faq",t:"자주 있는 문제",h:`<ul>
+<li><b>소리가 안 남</b> — 자동재생 정책 때문에 첫 탭 이후 재생됩니다. 스피커 아이콘과 기기 음소거도 확인하세요.</li>
+<li><b>기록이 사라짐</b> — 시크릿 모드이거나 다른 브라우저/프로파일일 수 있습니다. 다음엔 코드로 백업하세요.</li>
+<li><b>판이 작음</b> — 세로 모드로 전환하세요. 가로·세로 모두 자동 조정됩니다.</li>
+<li><b>코드를 못 읽음</b> — 큰따옴표·줄바꿈 없이 전체를 복사하세요.</li>
+<li><b>힌트가 쉽다</b> — 힌트는 별에만 영향 주고 기록은 남습니다. 탭 전에 한 수만 더 시도해 보세요.</li></ul>`},
+
+{id:"custom",t:"커스터마이즈",h:`<table><tr><th>상수 / 위치</th><th>의미</th></tr>
+<tr><td><code>TOTAL</code></td><td>레벨 수 (기본 40)</td></tr>
+<tr><td><code>TIERS</code> / <code>ZEN</code></td><td>난이도별 판 크기·램프 수·거울 예산·벽 수</td></tr>
+<tr><td><code>STORE</code></td><td>localStorage 키. 저장 구조를 바꾸면 버전도 올리기 (예: <code>prismpath.v2</code>)</td></tr>
+<tr><td><code>I18N</code> / <code>LANGS</code></td><td>언어 사전과 언어 목록</td></tr>
+<tr><td><code>:root</code> CSS 변수</td><td>색상 테마(시안=빛 / 앰버=램프 / 퍼플=분할기)</td></tr></table>
+<p>좀 더 어렵게 하려면 <code>TIERS[n].mirMax</code>와 <code>walls</code>를 올리면 되고, 새 기구를 추가하려면 조각 종류를 만들고 <code>computeBeams()</code> 분기에 처리를 더하면 됩니다.</p>
+<p><b>라이선스:</b> MIT. 아이콘·효과음·생성 로직은 모두 직접 작성했으며 서드파티 에셋은 없습니다.</p>`}
+],
+es:[
+{id:"overview",t:"Resumen",h:`<p><b>PRISM PATH</b> es un puzzle de lógica que funciona solo en el navegador: en el móvil en vertical o en el PC con doble clic. Sin compilación, sin frameworks, sin CDN y sin conexión: guarda el HTML donde quieras y ábrelo.</p>
+<p>Un <i>emisor</i> dispara un rayo de luz. Toca los espejos para cambiar <code>/</code> ⇄ <code>\\</code>, girar el rayo 90° y conseguir que <b>todas las lámparas se enciendan a la vez</b>.</p>
+<table><tr><th>Elemento</th><th>Detalle</th></tr>
+<tr><td>Género</td><td>Puzzle lógico / de láser</td></tr>
+<tr><td>Archivo</td><td><code>prism-path.html</code> — sin dependencias, funciona sin red</td></tr>
+<tr><td>Modos</td><td>40 niveles generados ＋ Desafío infinito (4 dificultades)</td></tr>
+<tr><td>Pantalla</td><td>Pensado en vertical (móvil), jugable también en PC</td></tr>
+<tr><td>Datos</td><td><code>localStorage</code> ＋ código de exportación/importación</td></tr>
+<tr><td>Sonido</td><td>Síntesis Web Audio, con interruptores de sonido y vibración</td></tr>
+<tr><td>Idiomas</td><td>日本語 / English / 简体中文 / 한국어 / Español (detección automática)</td></tr>
+<tr><td>Licencia</td><td>MIT</td></tr></table>`},
+
+{id:"play",t:"Cómo jugar",h:`<table><tr><th>Ficha</th><th>Nombre</th><th>Función</th></tr>
+<tr><td><span class="pc emit"><i></i></span></td><td>Emisor</td><td>Dispara el rayo en una dirección. Fijo.</td></tr>
+<tr><td><span class="pc mirror"><i></i></span></td><td>Espejo</td><td><b>Toca para cambiar <code>/</code> ⇄ <code>\\</code>.</b> Gira la luz 90°. Es lo único que controlas.</td></tr>
+<tr><td><span class="pc split"><i></i></span></td><td>Divisor</td><td>Parte la luz en <i>recto</i> + <i>lateral</i>. No gira.</td></tr>
+<tr><td><span class="pc bulb"><i></i></span></td><td>Lámpara</td><td>Se enciende al recibir luz y la absorbe ahí.</td></tr>
+<tr><td><span class="pc wall"><i></i></span></td><td>Muro</td><td>Bloquea la luz.</td></tr></table>
+<ol><li>La luz sale del emisor en línea recta.</li>
+<li>Toca espejos para esquivar muros y llegar a las lámparas.</li>
+<li>Todas las lámparas deben encenderse <b>a la vez</b>.</li></ol>
+<p><b>Puntuación:</b> 3★ si movimientos ≤ objetivo, 2★ si ≤ objetivo + 5, si no 1★. Las pistas limitan las estrellas (1 pista → máx. 2★, 2 o más → 1★). Deshacer devuelve un movimiento pero no baja el objetivo.</p>
+<div class="tip note">💡 ¿Atascado? Razona hacia atrás desde las lámparas. Con divisores, fija primero una rama y luego ajusta la otra ruta.</div>`},
+
+{id:"modes",t:"Modos y dificultad",h:`<table><tr><th>Niveles</th><th>Cuadrícula</th><th>Lámparas</th><th>Novedad</th></tr>
+<tr><td>Nv.1 – 3</td><td>4 × 5</td><td>1</td><td>solo espejos (modo tutorial)</td></tr>
+<tr><td>Nv.4 – 8</td><td>4 × 6</td><td>1</td><td>aparecen muros</td></tr>
+<tr><td>Nv.9 – 15</td><td>5 × 6</td><td>2</td><td>entra el <b>divisor</b></td></tr>
+<tr><td>Nv.16 – 23</td><td>5 × 7</td><td>2</td><td>rutas largas y ramificaciones</td></tr>
+<tr><td>Nv.24 – 32</td><td>6 × 8</td><td>3</td><td>varias ramas a la vez</td></tr>
+<tr><td>Nv.33 – 40</td><td>7 × 9</td><td>3</td><td>hasta 10 espejos y más muros</td></tr></table>
+<p>El modo <b>Desafío</b> genera un puzzle aleatorio en cada ronda con dificultades <code>Fácil / Normal / Difícil / Experto</code> y guarda tu mejor marca de cada una.</p>
+<p>Los niveles se desbloquean de uno en uno. El <b>objetivo (par)</b> es exactamente «el número de espejos mal orientados en la posición inicial».</p>`},
+
+{id:"save",t:"Datos guardados",h:`<p>El avance se guarda solo, en <code>localStorage</code>, con la clave <code>prismpath.v1</code>. <b>No se envía nada a ningún servidor.</b></p>
+<table><tr><th>Campo</th><th>Contenido</th></tr>
+<tr><td><code>unlocked</code></td><td>nivel más alto desbloqueado</td></tr>
+<tr><td><code>lv</code></td><td>estrellas, mejores movimientos y mejor tiempo por nivel</td></tr>
+<tr><td><code>zen</code></td><td>partidas del Desafío y mejor resultado por dificultad</td></tr>
+<tr><td><code>lang / sound / vib</code></td><td>idioma, sonido y vibración</td></tr></table>
+<ul><li><b>Transferir:</b> Ajustes → <i>Exportar</i> da un código Base64; pégalo en <i>Importar</i> de otro dispositivo.</li>
+<li><b>Reiniciar:</b> Ajustes → <i>Borrar</i> elimina todo (con confirmación).</li></ul>
+<div class="note">⚠️ En modo incógnito el avance puede perderse al cerrar la ventana. Guarda un código de respaldo.</div>`},
+
+{id:"lang",t:"Idiomas",h:`<p>Idiomas incluidos: <b>日本語 · English · 简体中文 · 한국어 · Español</b>.</p>
+<ul><li>En el primer arranque se detecta el idioma del navegador (si no coincide, English).</li>
+<li>Cámbialo cuando quieras con el globo de la cabecera o Ajustes → Idioma; la elección se recuerda.</li>
+<li>Interfaz, ayuda y pantallas de resultado salen de un diccionario por idioma: añade la clave a todos y a <code>LANGS</code> para estrenar uno nuevo.</li></ul>`},
+
+{id:"run",t:"Empezar",h:`<ol><li>Guarda el juego como <code>prism-path.html</code>.</li>
+<li>Ábrelo con doble clic (en móvil: Compartir → Abrir en el navegador). Sin instalación y sin internet.</li>
+<li>En iOS: ábrelo en Safari y usa <i>Añadir a pantalla de inicio</i> para verlo a pantalla completa.</li></ol>
+<p>Para servirlo en local:</p>
+<pre>python3 -m http.server 8080
+# → http://localhost:8080/prism-path.html
+
+npx serve .        # con Node.js</pre>
+<p>Vale cualquier hosting estático (GitHub Pages, Netlify…): no necesita API.</p>`},
+
+{id:"tech",t:"Bajo el capó",h:`<ul>
+<li><b>Simulación de luz</b> — BFS sobre estados <code>(celda, dirección)</code> con conjunto de visitados: los bucles de espejos y las uniones del divisor siempre terminan. Cada tramo guarda su distancia al emisor y se pinta con retardo CSS escalonado, así la luz «fluye».</li>
+<li><b>Generación (solución primero)</b> — se talla un árbol de luz desde el emisor: giros → espejos, ramas → divisores, hojas → lámparas. Después se verifica con <b>el mismo simulador del juego</b>. Los muros decorativos solo van fuera del recorrido y al final se barajan los espejos, descartando posiciones ya resueltas o con pocos errores: <b>es imposible que te llegue un puzzle sin solución.</b></li>
+<li><b>Objetivo</b> — número de espejos mal orientados tras barajar. No hay fichas de relleno, así que el tablero sigue siendo lógica pura.</li>
+<li><b>Sonido</b> — osciladores Web Audio puros: toque, un chasquido por lámpara (los tonos se apilan) y fanfarria de cuatro notas. Cero ficheros de audio.</li>
+<li><b>i18n</b> — un diccionario plano por idioma aplicado con atributos <code>data-i18n</code>.</li>
+<li><b>Dibujo</b> — tablero en CSS Grid con nodos reutilizados; se ajusta a ancho y alto usando <code>clientWidth/Height</code>, así que rotación y redimensionado funcionan.</li>
+</ul>
+<p>Teclado: <span class="kbd">U</span> deshacer · <span class="kbd">H</span> pista · <span class="kbd">R</span> reiniciar (todo lo demás es toque/clic).</p>`},
+
+{id:"env",t:"Requisitos",h:`<table><tr><th>Plataforma</th><th>Navegador</th><th>Notas</th></tr>
+<tr><td>iPhone / iPad</td><td>Safari 14+</td><td>mejor en vertical; «Añadir a pantalla de inicio» para verlo completo</td></tr>
+<tr><td>Android</td><td>Chrome 90+ / Edge / Samsung Internet</td><td>vibración solo en dispositivos compatibles</td></tr>
+<tr><td>PC</td><td>Chrome / Edge / Firefox / Safari actuales</td><td>atajos de teclado disponibles</td></tr></table>
+<ul><li>Se necesita JavaScript.</li><li>Sin cookies y sin rastreo; tras cargar el archivo no hay más red.</li>
+<li>Controles de toque con áreas cómodas (~44 px).</li></ul>`},
+
+{id:"faq",t:"Problemas frecuentes",h:`<ul>
+<li><b>No suena</b> — el navegador bloquea el audio hasta un gesto: empieza tras tu primer toque. Revisa también el icono del altavoz y el silencioso del sistema.</li>
+<li><b>Falta progreso</b> — seguro que estabas en modo incógnito u otro navegador/perfil. Exporta un código la próxima vez.</li>
+<li><b>Tablero pequeño</b> — pon el móvil en vertical; se ajusta a ambos ejes automáticamente.</li>
+<li><b>La importación falla</b> — copia el código entero, sin comillas ni saltos de línea.</li>
+<li><b>Pistas demasiado cómodas</b> — solo cuestan estrellas; tu récord sigue contando. Intenta un movimiento más antes de pedirla.</li></ul>`},
+
+{id:"custom",t:"Personalizar",h:`<table><tr><th>Constante / sitio</th><th>Significado</th></tr>
+<tr><td><code>TOTAL</code></td><td>número de niveles (40 por defecto)</td></tr>
+<tr><td><code>TIERS</code> / <code>ZEN</code></td><td>tamaño del tablero, lámparas, presupuesto de espejos y muros por dificultad</td></tr>
+<tr><td><code>STORE</code></td><td>clave de localStorage; sube la versión (p. ej. <code>prismpath.v2</code>) si cambias el formato</td></tr>
+<tr><td><code>I18N</code> / <code>LANGS</code></td><td>diccionarios y lista de idiomas</td></tr>
+<tr><td>variables CSS <code>:root</code></td><td>tema de color (cian=rayo, ámbar=lámpara, violeta=divisor)</td></tr></table>
+<p>Para subir la dificultad rápido, sube <code>TIERS[n].mirMax</code> y <code>walls</code>. Para una mecánica nueva, crea un tipo de ficha y amplía el <code>switch</code> de <code>computeBeams()</code>.</p>
+<p><b>Licencia:</b> MIT. Iconos, sonido y generador escritos a mano para este proyecto; sin recursos de terceros.</p>`}
+]
+};
+
+const FOOT={
+ ja:'PRISM PATH — HTML/CSS/JavaScript のみで作られた単一ファイルゲーム。<br><b>README.html</b> も同じく依存ゼロ・オフライン表示対応。',
+ en:'PRISM PATH — a single-file game built with plain HTML/CSS/JavaScript.<br>This <b>README.html</b> is dependency-free and works offline too.',
+ zh:'PRISM PATH — 用纯 HTML/CSS/JavaScript 编写的单文件游戏。<br>本 <b>README.html</b> 同样零依赖、可离线查看。',
+ ko:'PRISM PATH — 순수 HTML/CSS/JavaScript로 만든 단일 파일 게임.<br>이 <b>README.html</b> 역시 의존성 없이 오프라인에서 열립니다.',
+ es:'PRISM PATH — un juego de un solo archivo hecho con HTML/CSS/JavaScript puro.<br>Este <b>README.html</b> también es independiente y funciona sin conexión.'
+};
+const HERO={
+ ja:'1ファイルで遊べる、光を曲げる思考系レーザーパズル。',
+ en:'A thinking puzzle about bending a single beam of light — in one HTML file.',
+ zh:'单文件即可游玩的光线折射逻辑谜题。',
+ ko:'단일 파일로 즐기는 빛 굴절 논리 퍼즐.',
+ es:'Un puzzle de lógica sobre doblar un único rayo de luz, en un solo archivo.'
+};
+const FIG={ja:'例：スプリッターで2つのランプへ',en:'Example: a splitter feeds two lamps',zh:'示例：分束器点亮两个灯泡',ko:'예시: 분할기로 램프 두 개에 조사',es:'Ejemplo: un divisor alimenta dos lámparas'};
+
+function detect(){
+  try{const s=localStorage.getItem(KEY);if(s&&DOC[s])return s;}catch(e){}
+  const n=(navigator.language||"ja").toLowerCase();
+  for(const [k] of LANGS) if(n.startsWith(k)) return k;
+  return "en";
+}
+let LANG=detect();
+
+function render(){
+  document.documentElement.lang = LANG==="zh"?"zh-CN":LANG;
+  const chips=document.getElementById("chips");
+  chips.innerHTML=LANGS.map(([v,n])=>`<button class="chip${v===LANG?" sel":""}" data-l="${v}">${n}</button>`).join("");
+  chips.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{
+    LANG=b.dataset.l;try{localStorage.setItem(KEY,LANG)}catch(e){}render();window.scrollTo({top:0,behavior:"smooth"});
+  });
+  document.getElementById("heroSub").textContent=HERO[LANG]||HERO.en;
+  document.getElementById("figCap").textContent=FIG[LANG]||FIG.en;
+  const secs=DOC[LANG]||DOC.en;
+  document.getElementById("toc").innerHTML=secs.map((s,i)=>`<a href="#${s.id}">${i+1}. ${s.t}</a>`).join("");
+  document.getElementById("doc").innerHTML=secs.map((s,i)=>
+    `<section id="${s.id}"><h2><span class="no">${String(i+1).padStart(2,"0")}</span>${s.t}</h2>${s.h}</section>`).join("");
+  document.getElementById("foot").innerHTML=(FOOT[LANG]||FOOT.en)+
+    '<br>© PRISM PATH · MIT';
+}
+render();
+</script>
+</body>
+</html>
